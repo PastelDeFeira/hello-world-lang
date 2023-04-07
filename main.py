@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import subprocess
+from tkinter import ttk
+import time
 
 # Global variable to store file path
 file_path = None
@@ -16,7 +17,7 @@ def new_file():
 
 def open_file():
     global file_path
-    file_path = filedialog.askopenfilename(defaultextension=".hlw", filetypes=[("Hello World Files", "*.hlw"), ("Text Files", "*.txt"), ("All Files", "*.*")])
+    file_path = filedialog.askopenfilename(defaultextension=".helloworld", filetypes=[("Hello World Files", "*.helloworld"), ("Text Files", "*.txt"), ("All Files", "*.*")])
     if file_path:
         with open(file_path, "r") as f:
             text_area.delete("1.0", "end")
@@ -34,20 +35,24 @@ def save_file():
 
 def save_file_as():
     global file_path
-    file_path = filedialog.asksaveasfilename(defaultextension=".hlw", filetypes=[("Hello World Files", "*.hlw"), ("Text Files", "*.txt"), ("All Files", "*.*")])
+    file_path = filedialog.asksaveasfilename(defaultextension=".helloworld", filetypes=[("Hello World Files", "*.helloworld"), ("Text Files", "*.txt"), ("All Files", "*.*")])
     if file_path:
         with open(file_path, "w") as f:
             f.write(text_area.get("1.0", "end-1c"))
         root.title(f"{file_path.split('/')[-1]} - Hello World Lang")
 
 def compile_now():
-    global file_path
-    if file_path:
-        with open(file_path, "w") as f:
-            f.write("print('Hello World')")
-        subprocess.call(['python', file_path])
-    else:
-        messagebox.showwarning("Warning", "Please save your file first.")
+    code = text_area.get("1.0", "end-1c")
+    if not code:
+        messagebox.showwarning("Warning", "Cannot compile empty program!")
+        return
+    progress_bar = tk.ttk.Progressbar(root, mode='indeterminate')
+    progress_bar.pack(side=tk.BOTTOM, fill=tk.X)
+    progress_bar.start(10 * len(code))
+    root.after(10 * len(code), lambda: progress_bar.pack_forget())
+    root.after(10 * len(code), lambda: print("Hello World!"))
+
+
 
 root = tk.Tk()
 root.title("Hello World Compiler")

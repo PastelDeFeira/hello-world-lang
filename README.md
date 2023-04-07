@@ -6,15 +6,12 @@ programming language where everything outputs "Hello World!"
 ### what you need
 
 - python
+- tkinter
+- time library
 
 ### intructions:
 
 - clone the repo
 - with python installed, execute the file
-- write something i  the text area, and in the file menu, save it
+- write something in the text area, and in the file menu, save it, or open example.helloworld
 - press compile
-
-## or:
-
-- clone the repo
-- run the exe in the output folder
