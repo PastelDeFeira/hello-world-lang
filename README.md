@@ -1,5 +1,5 @@
 # hello-world-lang
-programming language where everything outputs "Hello World!"
+"programming language" where everything outputs "Hello World!"
 
 ## How to run:
 
